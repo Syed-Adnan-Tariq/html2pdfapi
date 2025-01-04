@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>{{title}} Report</title>
+  </head>
+  <body style="margin: 0; padding: 0; font-family: 'Poppins', sans-serif">
+    <div>
+      <img src="{{logo}}" alt="logo" style="float: right; height: 36px" />
+      <div style="color: #393939; font-size: 24px; font-weight: 600">
+        {{title}} Report
+      </div>
+      {{#if from}} {{#if to}}
+
+      <div style="color: #6b6b6b; font-size: 16px; line-height: 16px">
+        {{dateFormat from 'MMM DD, YYYY'}} - {{dateFormat to 'MMM DD, YYYY'}}
+      </div>
+      {{/if}} {{/if}}
+
+      <div
+        style="
+          margin: 30px 0;
+          color: #393939;
+          font-size: 24px;
+          font-weight: 600;
+        "
+      >
+        Transactions
+      </div>
+      <table aria-label="report-table" style="border-collapse: collapse; width: 100%">
+        <thead>
+          <tr style="text-align: left">
+            <th
+              style="
+                min-width: 100px;
+                color: #393939;
+                font-size: 14px;
+                font-weight: 600;
+              "
+            >
+              Sr No
+            </th>
+            <th style="color: #393939; font-size: 14px; font-weight: 600">
+              Party
+            </th>
+            <th style="color: #393939; font-size: 14px; font-weight: 600">
+              Category
+            </th>
+            <th style="color: #393939; font-size: 14px; font-weight: 600">
+              Amount
+            </th>
+            <th style="color: #393939; font-size: 14px; font-weight: 600">
+              Status
+            </th>
+            <th style="color: #393939; font-size: 14px; font-weight: 600">
+              Date
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Replace the following with your dynamic data -->
+          {{#each transactions}}
+          <tr style="color: #393939; font-size: 14px; text-align: left">
+            <td style="display: inline-block">
+              <div style="display: table-cell">
+                {{#if this.batch}}
+                <img
+                  src="{{../batchImage}}"
+                  style="margin-right: 12px; vertical-align: middle"
+                  alt="img"
+                />
+                {{else}}
+                <img
+                  src="{{../singleImage}}"
+                  style="margin-right: 12px; vertical-align: middle"
+                  alt="img"
+                />
+                {{/if}}
+                <span
+                  style="
+                    vertical-align: middle;
+                    color: #000;
+                    font-size: 14px;
+                    font-weight: 500;
+                    display: inline-block;
+                  "
+                >
+                  <div>{{this.srNo}}</div>
+                  {{#if this.batch}}
+                  <span
+                    style="color: #6b6b6b; font-size: 10px; font-weight: 400"
+                    >BN {{this.batch}}</span
+                  >
+                  {{/if}}
+                </span>
+              </div>
+            </td>
+            <td>
+              <div style="color: #000; font-size: 14px; font-weight: 500">
+                {{this.party.name}}
+              </div>
+              <div style="color: #6b6b6b; font-size: 10px">
+                ID {{this.party.id}}
+              </div>
+            </td>
+            <td>
+              <div style="color: #000; font-size: 14px; font-weight: 500">
+                {{this.category}}
+              </div>
+              <div style="color: #6b6b6b; font-size: 10px">
+                {{this.subCategory}}
+              </div>
+            </td>
+            <td>{{this.amount}} {{currency}}</td>
+            <td>
+              <span
+                style="
+                  text-transform: capitalize;
+                  background-color: {{lookup ../colors status}};
+                  border-radius: 5px;
+                  color: #1d1d1d;
+                  font-size: 10px;
+                  font-weight: 500;
+                  padding: 8px 10px;
+                  display: inline-block;
+                "
+              >
+                {{toLowerCase this.status}}</span
+              >
+            </td>
+            <td>{{dateFormat this.createdAt 'DD/MM/YYYY'}}</td>
+          </tr>
+          {{/each}}
+          <!-- End dynamic data -->
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
